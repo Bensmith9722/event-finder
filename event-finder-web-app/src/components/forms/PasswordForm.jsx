@@ -1,5 +1,5 @@
 
-function PasswordForm ({ password, passwordConfirmation, confirmPassword, passwordsMatch, onChange }) {
+function PasswordForm ({ password, passwordConfirmation, confirmPassword, onChange }) {
     return (
         <>
             <div className="form-group">
