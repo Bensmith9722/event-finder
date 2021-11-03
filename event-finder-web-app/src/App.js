@@ -3,6 +3,7 @@ import firebaseConfig from './config/Firebase';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 // Components
+import { AuthProvider } from './components/AuthContext';
 import NavBar from './components/NavBar';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
@@ -14,12 +15,14 @@ const app = initializeApp(firebaseConfig);
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Route component={NavBar} />
-      
-        <Route exact path="/SignUp" component={SignUp} />
-        <Route exact path="/Login" component={Login} />
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Route component={NavBar} />
+        
+          <Route exact path="/SignUp" component={SignUp} />
+          <Route exact path="/Login" component={Login} />
+        </Router>
+      </AuthProvider>
     </div>
   );
 }
