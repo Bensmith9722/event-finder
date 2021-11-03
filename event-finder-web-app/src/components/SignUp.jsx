@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import NameForm from "./forms/NameForm";
 import EmailForm from "./forms/EmailForm";
+import PasswordForm from "./forms/PasswordForm";
 
 const emptyAccountInfo = {
     firstName: "",
@@ -39,12 +40,7 @@ function SignUp () {
             <form onSubmit={onSubmit}>
                 <NameForm onChange={onChange} firstName={accountInfo.firstName} lastName={accountInfo.lastName} />
                 <EmailForm onChange={onChange} email={accountInfo.email} />
-
-                <div className="form-group">
-                    <label htmlFor="">Password</label>
-                    <input className="form-control" onChange={onChange} type="password" value={accountInfo.password} name="password" placeholder="Password" />
-                    <input className="form-control" onChange={onChange} type="password" value={accountInfo.passwordConfirmation} name="passwordConfirmation" placeholder="Re-typed Password" />
-                </div>
+                <PasswordForm onChange={onChange} confirmPassword password={accountInfo.password} passwordConfirmation={accountInfo.passwordConfirmation} />
 
                 <button type="submit" className="btn btn-dark btn-primary">SignUp</button>
             </form>
