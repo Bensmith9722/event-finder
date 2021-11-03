@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import NameForm from "./forms/NameForm";
+import EmailForm from "./forms/EmailForm";
 
 const emptyAccountInfo = {
     firstName: "",
@@ -37,11 +38,7 @@ function SignUp () {
         <>
             <form onSubmit={onSubmit}>
                 <NameForm onChange={onChange} firstName={accountInfo.firstName} lastName={accountInfo.lastName} />
-
-                <div className="form-group">
-                    <label htmlFor="">Email</label>
-                    <input className="form-control" onChange={onChange} type="email" value={accountInfo.email} name="email" placeholder="JohnDoe@example.com" />
-                </div>
+                <EmailForm onChange={onChange} email={accountInfo.email} />
 
                 <div className="form-group">
                     <label htmlFor="">Password</label>
