@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import NameForm from "./forms/NameForm";
 import EmailForm from "./forms/EmailForm";
@@ -13,6 +14,7 @@ const emptyAccountInfo = {
 }
 
 function SignUp () {
+    const auth = getAuth();
     const [accountInfo, setAccountInfo] = useState(emptyAccountInfo);
     
     const onChange = (event) => {
@@ -29,6 +31,27 @@ function SignUp () {
     const onSubmit = (event) => {
 
         console.log(accountInfo);
+        
+        // Create user with email + password using firebase.
+        if (accountInfo.password === accountInfo.passwordConfirmation) {
+            createUserWithEmailAndPassword(auth, accountInfo.email, accountInfo.password).then((userCredential) => {
+                const user = userCredential.user;
+                
+                // Set users name
+                // TODO: Normalize user name (using _?)
+                updateProfile(user, {
+                    displayName: accountInfo.firstName + " " + accountInfo.lastName
+                });
+
+                console.log(user);
+            }).catch((errors) => {
+                console.log(errors);
+            });
+        }
+        else {
+            console.log("Passwords do not match! Please re-type passwords.");
+        }
+
 
         // Clear input fields
         setAccountInfo(emptyAccountInfo);
