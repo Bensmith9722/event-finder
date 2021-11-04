@@ -1,3 +1,4 @@
+import Logout from "./Logout";
 
 function NavBar () {
     return (
@@ -7,6 +8,8 @@ function NavBar () {
             <div className="navbar-nav">
                 <a className="nav-item nav-link" href="/signup">Sign Up</a>
                 <a className="nav-item nav-link" href="/login">Login</a>
+                
+                <Logout />
             </div>
         </nav>
     );
