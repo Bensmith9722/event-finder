@@ -15,6 +15,7 @@ function NavBar () {
                 <Link className="navbar-brand" to="/">Event Finder</Link>
 
                 <div className="navbar-nav">
+                    <span className="navbar-text" style={{paddingRight: "2rem"}} > Hello, {user.displayName}! </span>
                     <Logout />
                 </div>
             </nav>
