@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 // Components
 import { AuthProvider } from './components/AuthContext';
 import NavBar from './components/NavBar';
-import SignUp from './components/SignUp';
+import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
 
 // Initialize app with firestore.

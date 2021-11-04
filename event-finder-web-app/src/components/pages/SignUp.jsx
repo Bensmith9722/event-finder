@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-import NameForm from "./forms/NameForm";
-import EmailForm from "./forms/EmailForm";
-import PasswordForm from "./forms/PasswordForm";
+import NameForm from "../forms/NameForm";
+import EmailForm from "../forms/EmailForm";
+import PasswordForm from "../forms/PasswordForm";
 
 const emptyAccountInfo = {
     firstName: "",
