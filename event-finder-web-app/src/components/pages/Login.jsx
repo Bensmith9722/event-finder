@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "@firebase/auth";
 
 import EmailForm from "../forms/EmailForm";
 import PasswordForm from "../forms/PasswordForm";
@@ -6,6 +7,15 @@ import PasswordForm from "../forms/PasswordForm";
 const emptyLoginInfo = {
     email: "",
     password: "",
+}
+
+const handleEmailLogin = (email, password) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        /* User is signed in. */
+    }).catch((error) => {
+        console.log(error)
+    });
 }
 
 function Login () {
@@ -26,7 +36,12 @@ function Login () {
 
         console.log(loginInfo);
 
-        /* TODO: Login if a user is found. */
+        if (loginInfo.email && loginInfo.password) {
+            handleEmailLogin(loginInfo.email, loginInfo.password);
+        }
+        else {
+            console.log("Please enter both a email and password.");
+        }
 
         // Clear input fields
         setLoginInfo(emptyLoginInfo);
