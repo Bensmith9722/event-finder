@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "@firebase/auth";
+import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, browserLocalPersistence } from "@firebase/auth";
 
 import EmailForm from "../forms/EmailForm";
 import PasswordForm from "../forms/PasswordForm";
@@ -7,14 +7,21 @@ import PasswordForm from "../forms/PasswordForm";
 const emptyLoginInfo = {
     email: "",
     password: "",
+    rememberUser: false
 }
 
-const handleEmailLogin = (email, password) => {
+const handleEmailLogin = ({ email, password, rememberUser }) => {
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-        /* User is signed in. */
-    }).catch((error) => {
-        console.log(error)
+    const loginPersistence = (rememberUser)? browserLocalPersistence : browserSessionPersistence;
+    console.log(loginPersistence);
+
+    setPersistence(auth, loginPersistence).then(() => {
+        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+            /* User is signed in. */
+            // TODO: Redirect to /
+        }).catch((error) => {
+            console.log(error)
+        });
     });
 }
 
@@ -32,12 +39,24 @@ function Login () {
         });
     }
 
+    const onCheckboxChange = (event) => {
+        const {name, value} = event.target;
+        const newCheckedValue = !(value === "true");
+        
+        setLoginInfo((prevLoginInfo) => {
+            return {
+                ...prevLoginInfo,
+                [name]: newCheckedValue
+            }
+        });
+    } 
+
     const onSubmit = (event) => {
 
         console.log(loginInfo);
 
         if (loginInfo.email && loginInfo.password) {
-            handleEmailLogin(loginInfo.email, loginInfo.password);
+            handleEmailLogin(loginInfo);
         }
         else {
             console.log("Please enter both a email and password.");
@@ -55,6 +74,11 @@ function Login () {
                 <EmailForm onChange={onChange} email={loginInfo.email} />
                 <PasswordForm onChange={onChange} password={loginInfo.password} />
 
+                <div className="">
+                    <label htmlFor="rememberMeCheckbox" className="form-check-label">Remember Me</label>
+                    <input type="checkbox" className="form-check-input" value={loginInfo.rememberUser} checked={loginInfo.rememberUser} onChange={onCheckboxChange} id="rememberUser" name="rememberUser" />
+                </div>
+        
                 <button type="submit" className="btn btn-dark btn-primary">login</button>
             </form>
         </>
