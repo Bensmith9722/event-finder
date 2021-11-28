@@ -5,8 +5,8 @@ export const  AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(undefined);
-
     const auth = getAuth();
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             (user)? setUser(user): setUser(null);
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     }
     else {
         return (
-            <AuthContext.Provider value={{ user }}>
+            <AuthContext.Provider value={{ user, auth }}>
                 { children /* Render children */}
             </AuthContext.Provider>
         );
