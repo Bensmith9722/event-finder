@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { AuthContext } from "../AuthContext";
 
 import NameForm from "../forms/NameForm";
 import EmailForm from "../forms/EmailForm";
@@ -14,7 +15,7 @@ const emptyAccountInfo = {
 }
 
 function SignUp () {
-    const auth = getAuth();
+    const { auth } = useContext(AuthContext);
     const [accountInfo, setAccountInfo] = useState(emptyAccountInfo);
     
     const onChange = (event) => {
