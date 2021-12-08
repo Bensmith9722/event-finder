@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { AuthContext } from "../AuthContext";
 
 import NameForm from "../forms/NameForm";
