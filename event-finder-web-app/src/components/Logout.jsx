@@ -1,11 +1,13 @@
-import { getAuth , signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { useHistory } from "react-router";
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
 function Logout () {
+    const { auth } = useContext(AuthContext);
     const history = useHistory();
 
     const handleLogout = (event) => {
-        const auth = getAuth();
     
         signOut(auth).then(() => {
             // User Logged out
