@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword, setPersistence, browserSessionPersistence, browserLocalPersistence } from "@firebase/auth";
+import { useState, useContext } from "react";
+import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence, browserLocalPersistence } from "@firebase/auth";
+import { AuthContext } from "../AuthContext";
 
 import EmailForm from "../forms/EmailForm";
 import PasswordForm from "../forms/PasswordForm";
@@ -10,8 +11,7 @@ const emptyLoginInfo = {
     rememberUser: false
 }
 
-const handleEmailLogin = ({ email, password, rememberUser }) => {
-    const auth = getAuth();
+const handleEmailLogin = (auth, { email, password, rememberUser }) => {
     const loginPersistence = (rememberUser)? browserLocalPersistence : browserSessionPersistence;
     console.log(loginPersistence);
 
@@ -27,6 +27,7 @@ const handleEmailLogin = ({ email, password, rememberUser }) => {
 
 function Login () {
     const [loginInfo, setLoginInfo] = useState(emptyLoginInfo);
+    const { auth } = useContext(AuthContext);
 
     const onChange = (event) => {
         const {name, value} = event.target;
@@ -56,7 +57,7 @@ function Login () {
         console.log(loginInfo);
 
         if (loginInfo.email && loginInfo.password) {
-            handleEmailLogin(loginInfo);
+            handleEmailLogin(auth, loginInfo);
         }
         else {
             console.log("Please enter both a email and password.");
